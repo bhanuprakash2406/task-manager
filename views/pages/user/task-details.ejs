@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Details | TaskFlow</title>
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/task-details.css">
+</head>
+<body>
+    <div class="dashboard-container">
+         <!-- SIDEBAR -->
+        <%- include("../../partials/userSidebar.ejs") %>
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div>
+                    <h1>Task Details</h1>
+                    <p>View complete information about your task.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <%= currentUser.name.charAt(0).toUpperCase() %>
+                    </div>
+                    <span>
+                        <%= currentUser.name %>
+                    </span>
+                </div>
+            </header>
+            <!-- TASK DETAILS CARD -->
+            <section class="task-details-container">
+                <div class="task-details-header">
+                    <div>
+                        <span class="task-label">TASK INFORMATION</span>
+                        <h2>
+                            <%= task.title %>
+                        </h2>
+                    </div>
+                    <span class="status <%= task.status %>">
+                        <%= task.status %>
+                    </span>
+                </div>
+                <div class="task-description">
+                    <h3>Description</h3>
+                    <p>
+                        <%= task.description || "No description provided." %>
+                    </p>
+                </div>
+                <div class="task-information-grid">
+                    <div class="information-card">
+                        <span>Priority</span>
+                        <strong class="priority <%= task.priority %>">
+                            <%= task.priority %>
+                        </strong>
+                    </div>
+                    <div class="information-card">
+                        <span>Due Date</span>
+                        <strong>
+                            <%= task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "Not set" %>
+                        </strong>
+                    </div>
+                    <div class="information-card">
+                        <span>Assigned By</span>
+                        <strong>
+                            <%= task.assignedBy ? task.assignedBy.name : "Not available" %>
+                        </strong>
+                    </div>
+                    <div class="information-card">
+                        <span>Assigned To</span>
+                        <strong>
+                            <%= task.assignedTo ? task.assignedTo.name : "Not available" %>
+                        </strong>
+                    </div>
+                    <div class="information-card">
+                        <span>Created Date</span>
+                        <strong>
+                            <%= task.createdAt ? new Date(task.createdAt).toLocaleDateString() : "Not available" %>
+                        </strong>
+                    </div>
+                    <div class="information-card">
+                        <span>Last Updated</span>
+                        <strong>
+                            <%= task.updatedAt ? new Date(task.updatedAt).toLocaleDateString() : "Not available" %>
+                        </strong>
+                    </div>
+                </div>
+                <!-- ACTIONS -->
+                <div class="task-details-actions">
+                    <a href="/user/tasks" class="back-btn">
+                        ← Back to My Tasks
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | TaskFlow</title>
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="brand">
+                <h1>TaskFlow<span>.</span></h1>
+            </div>
+            <div class="auth-content">
+                <h2>Start organizing.<br>Start achieving.</h2>
+                <p>
+                    Create your account and take control
+                    of your daily tasks and productivity.
+                </p>
+            </div>
+            <div class="auth-footer">
+                © 2026 TaskFlow. All rights reserved.
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-card">
+                <div class="mobile-brand">
+                    <h1>TaskFlow<span>.</span></h1>
+                </div>
+                <h2>Create an account</h2>
+                <p class="subtitle">Enter your details to get started.</p>
+                <% if (typeof error !== "undefined" && error) { %>
+                    <div class="alert error">
+                        <%= error %>
+                    </div>
+                <% } %>
+                <form action="/register" method="POST">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a password"
+                            minlength="6"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Confirm your password"
+                            minlength="6"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+                    <button type="submit" class="auth-btn">
+                        Create Account
+                    </button>
+                </form>
+                <p class="auth-switch">
+                    Already have an account?
+                    <a href="/login">Sign in</a>
+                </p>
+                <a href="/" class="back-home">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

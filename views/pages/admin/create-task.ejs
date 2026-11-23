@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task | TaskFlow</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/create-task.css">
+</head>
+<body>
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <%- include("../../partials/sidebar.ejs") %>
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <h1>Create New Task</h1>
+                <p>Assign a new task to your team members.</p>
+            </div>
+        </header>
+        <div class="task-form-container">
+            <div class="form-heading">
+                <h2>Task Information</h2>
+                <p>Fill in the details below to create a task.</p>
+            </div>
+            <% if (typeof error !== "undefined" && error) { %>
+                <div class="alert error"><%= error %></div>
+            <% } %>
+            <% if (typeof success !== "undefined" && success) { %>
+                <div class="alert success"><%= success %></div>
+            <% } %>
+            <form action="/admin/create-task" method="POST">
+                <div class="form-group">
+                    <label for="title">Task Title *</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="Enter task title"
+                        maxlength="120"
+                        required
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="5"
+                        placeholder="Describe the task..."
+                    ></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="assignedTo">Assign To *</label>
+                        <select id="assignedTo" name="assignedTo" required>
+                            <option value="">Select team member</option>
+                            <% users.forEach(user => { %>
+                                <option value="<%= user.email %>">
+                                    <%= user.name %> (<%= user.email %>)
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="priority">Priority *</label>
+                        <select id="priority" name="priority" required>
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dueDate">Due Date</label>
+                    <input
+                        type="date"
+                        id="dueDate"
+                        name="dueDate"
+                        required
+                    >
+                </div>
+                <div class="form-actions">
+                    <a href="/admin/dashboard" class="cancel-btn">
+                        Cancel
+                    </a>
+                    <button type="submit" class="submit-btn">
+                        Create Task
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>

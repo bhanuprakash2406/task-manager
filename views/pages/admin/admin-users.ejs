@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users | TaskFlow</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/admin-users.css">
+</head>
+<body>
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <%- include("../../partials/sidebar.ejs") %>
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <h1>Manage Users</h1>
+                <p>View and manage your registered team members.</p>
+            </div>
+        </header>
+        <!-- User Summary -->
+        <section class="user-summary">
+            <div class="user-summary-card">
+                <p>Total Registered Users</p>
+                <h2><%= users.length %></h2>
+                <small>Active user accounts</small>
+            </div>
+        </section>
+        <!-- Users Table -->
+        <section class="content-card">
+            <div class="section-heading">
+                <div>
+                    <h2>Team Members</h2>
+                    <p>All registered user accounts</p>
+                </div>
+            </div>
+            <% if (typeof success !== "undefined" && success) { %>
+                <div class="alert success"><%= success %></div>
+            <% } %>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Email Address</th>
+                            <th>Assigned Tasks</th>
+                            <th>Joined Date</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% if (users && users.length > 0) { %>
+                        <% users.forEach(user => { %>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">
+                                            <%= user.name.charAt(0).toUpperCase() %>
+                                        </div>
+                                        <strong><%= user.name %></strong>
+                                    </div>
+                                </td>
+                                <td><%= user.email %></td>
+                                <td>
+                                    <span class="task-count">
+                                        <%= user.taskCount %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <%= new Date(user.createdAt).toLocaleDateString() %>
+                                </td>
+                                <td>
+                                    <span class="role-badge">
+                                        <%= user.role %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <form
+                                        action="/admin/users/<%= user._id %>/delete"
+                                        method="POST"
+                                        onsubmit="return confirm('Are you sure you want to delete this user?')"
+                                    >
+                                        <button type="submit" class="delete-btn">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="6" class="empty-message">
+                                No registered users found.
+                            </td>
+                        </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

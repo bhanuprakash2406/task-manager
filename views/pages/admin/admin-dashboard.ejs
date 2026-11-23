@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | TaskFlow</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+       <%- include("../../partials/sidebar.ejs") %>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="topbar">
+                <div>
+                    <h1>Dashboard Overview</h1>
+                    <p>Manage your team and monitor task progress.</p>
+                </div>
+                <div class="topbar-right">
+                    <span class="admin-badge">ADMIN</span>
+                    <div class="topbar-user">
+                        <div class="avatar">
+                            <%= currentUser.name.charAt(0).toUpperCase() %>
+                        </div>
+                        <span>
+                            <%= currentUser.name %>
+                        </span>
+                    </div>
+                </div>
+            </header>
+            <!-- Welcome -->
+            <section class="welcome-section">
+                <div>
+                    <h2>Hello, <%= currentUser.name %> 👋</h2>
+                    <p>Here's what's happening with your tasks today.</p>
+                </div>
+                <a href="/admin/create-task" class="primary-btn">
+                    + Create New Task
+                </a>
+            </section>
+            <!-- Statistics -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon purple">▦</div>
+                    <p>Total Tasks</p>
+                    <h2>
+                        <%= statistics.totalTasks %>
+                    </h2>
+                    <small>All tasks created</small>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">◷</div>
+                    <p>Pending Tasks</p>
+                    <h2>
+                        <%= statistics.pendingTasks %>
+                    </h2>
+                    <small>Waiting to start</small>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon blue">↗</div>
+                    <p>Completed Tasks</p>
+                    <h2>
+                        <%= statistics.completedTasks %>
+                    </h2>
+                    <small>Successfully finished</small>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">♙</div>
+                    <p>Total Users</p>
+                    <h2>
+                        <%= statistics.totalUsers %>
+                    </h2>
+                    <small>Registered team members</small>
+                </div>
+            </section>
+            <!-- Recent Tasks -->
+            <section class="content-card">
+                <div class="section-heading">
+                    <div>
+                        <h2>Recent Tasks</h2>
+                        <p>Latest tasks assigned to your team</p>
+                    </div>
+                    <a href="/admin/tasks">View All Tasks →</a>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Task Name</th>
+                                <th>Assigned To</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (tasks && tasks.length> 0) { %>
+                                <% tasks.forEach(task=> { %>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <%= task.title %>
+                                            </strong>
+                                            <small>
+                                                <%= task.description || "No description" %>
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <%= task.assignedTo ? task.assignedTo.name : "Unknown" %>
+                                        </td>
+                                        <td>
+                                            <span class="priority <%= task.priority %>">
+                                                <%= task.priority %>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="status <%= task.status %>">
+                                                <%= task.status %>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <%= new Date(task.createdAt).toLocaleDateString() %>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            <% } else { %>
+                                <tr>
+                                    <td colspan="5" class="empty-message">
+                                        No tasks available. Create your first task.
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- Footer -->
+            <footer class="dashboard-footer">
+                <p>© <%= new Date().getFullYear() %> TaskFlow. All rights reserved.</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

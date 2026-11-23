@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task | TaskFlow</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/create-task.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <%- include("../../partials/sidebar.ejs") %>
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <h1>Edit Task</h1>
+                    <p>Update task information and assignment.</p>
+                </div>
+            </header>
+            <div class="task-form-container">
+                <div class="form-heading">
+                    <h2>Update Task Information</h2>
+                    <p>Modify the details of this task.</p>
+                </div>
+                <% if (typeof error !=="undefined" && error) { %>
+                    <div class="alert error">
+                        <%= error %>
+                    </div>
+                <% } %>
+                <form action="/admin/tasks/<%= task._id %>/edit" method="POST">
+                    <!-- Task Title -->
+                    <div class="form-group">
+                        <label for="title">Task Title *</label>
+                        <input type="text" id="title" name="title" value="<%= task.title %>" maxlength="120"
+                            required>
+                    </div>
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description"
+                            rows="5"><%= task.description || "" %></textarea>
+                    </div>
+                    <div class="form-row">
+                        <!-- Assign User -->
+                        <div class="form-group">
+                            <label for="assignedTo">Assign To *</label>
+                            <select id="assignedTo" name="assignedTo" required>
+                                <% users.forEach(user=> { %>
+                                    <option value="<%= user.email %>" <%=task.assignedTo &&
+                                        task.assignedTo._id.toString()===user._id.toString() ? "selected"
+                                        : "" %>
+                                        >
+                                        <%= user.name %> (<%= user.email %>)
+                                    </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <!-- Priority -->
+                        <div class="form-group">
+                            <label for="priority">Priority *</label>
+                            <select id="priority" name="priority" required>
+                                <option value="low" <%=task.priority==="low" ? "selected" : "" %>>
+                                    Low
+                                </option>
+                                <option value="medium" <%=task.priority==="medium" ? "selected" : "" %>>
+                                    Medium
+                                </option>
+                                <option value="high" <%=task.priority==="high" ? "selected" : "" %>>
+                                    High
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Due Date -->
+                    <div class="form-group">
+                        <label for="dueDate">Due Date</label>
+                        <input type="date" id="dueDate" name="dueDate" required value="<%= task.dueDate
+                            ? new Date(task.dueDate).toISOString().slice(0, 10)
+                            : '' %>">
+                    </div>
+                    <!-- Current Status -->
+                    <div class="form-group">
+                        <label for="status">Status *</label>
+                        <select id="status" name="status" required>
+                            <option value="pending" <%=task.status==="pending" ? "selected" : "" %>>
+                                Pending
+                            </option>
+                            <option value="in-progress" <%=task.status==="in-progress" ? "selected" : "" %>>
+                                In Progress
+                            </option>
+                            <option value="completed" <%=task.status==="completed" ? "selected" : "" %>>
+                                Completed
+                            </option>
+                        </select>
+                    </div>
+                    <!-- Buttons -->
+                    <div class="form-actions">
+                        <a href="/admin/tasks" class="cancel-btn">
+                            Cancel
+                        </a>
+                        <button type="submit" class="submit-btn">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

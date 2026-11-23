@@ -1,0 +1,15 @@
+<aside class="sidebar">
+    <div class="logo">
+        <h2>TaskFlow<span>.</span></h2>
+    </div>
+    <nav>
+        <a href="/user/dashboard" class="<%= currentPage === 'dashboard' ? 'active' : '' %>">▦ Dashboard</a>
+        <a href="/user/tasks" class="<%= currentPage === 'tasks' ? 'active' : '' %>">✓ My Tasks</a>
+        <a href="/user/profile" class="<%= currentPage === 'profile' ? 'active' : '' %>">♙ My Profile</a>
+    </nav>
+    <form action="/logout" method="POST">
+        <button type="submit" class="logout-btn">
+            Logout
+        </button>
+    </form>
+</aside>

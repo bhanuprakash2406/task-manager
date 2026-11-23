@@ -1,0 +1,193 @@
+
+/* =================================
+   EDIT TASK PAGE
+================================= */
+
+.edit-task-page {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: #f4f6fb;
+    font-family: Arial, sans-serif;
+}
+
+.edit-task-container {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.edit-task-header {
+    margin-bottom: 25px;
+}
+
+.edit-task-header h1 {
+    color: #1e293b;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.edit-task-header p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.edit-task-card {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.05);
+}
+
+.edit-task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.edit-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.edit-form-group label {
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.edit-form-group input,
+.edit-form-group textarea,
+.edit-form-group select {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #1e293b;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-form-group textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.edit-form-group input:focus,
+.edit-form-group textarea:focus,
+.edit-form-group select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.edit-form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.edit-status-box {
+    padding: 15px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.edit-status-box label {
+    display: block;
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.edit-status-value {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #e0e7ff;
+    color: #4338ca;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.edit-task-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.edit-submit-btn,
+.edit-cancel-btn {
+    display: inline-block;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.edit-submit-btn {
+    background: #4f46e5;
+    color: #ffffff;
+}
+
+.edit-submit-btn:hover {
+    background: #4338ca;
+}
+
+.edit-cancel-btn {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.edit-cancel-btn:hover {
+    background: #cbd5e1;
+}
+
+.edit-error {
+    padding: 13px 15px;
+    background: #fee2e2;
+    color: #b91c1c;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* =================================
+   RESPONSIVE DESIGN
+================================= */
+
+@media (max-width: 600px) {
+    .edit-task-page {
+        padding: 25px 14px;
+    }
+
+    .edit-task-card {
+        padding: 22px 17px;
+    }
+
+    .edit-task-header h1 {
+        font-size: 23px;
+    }
+
+    .edit-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .edit-task-actions {
+        flex-direction: column;
+    }
+
+    .edit-submit-btn,
+    .edit-cancel-btn {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,0 +1,582 @@
+
+/* =========================================
+   TASKFLOW - ADMIN TASK MANAGEMENT
+   File: public/css/admin-tasks.css
+========================================= */
+
+
+/* =========================================
+   1. GLOBAL STYLES
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5f7fb;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1e293b;
+}
+
+.main-content {
+    min-width: 0;
+    flex: 1;
+    padding: 30px;
+}
+
+
+/* =========================================
+   2. TOPBAR
+========================================= */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.topbar h1 {
+    margin: 0 0 8px;
+    color: #172033;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.topbar p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    background: #4f46e5;
+    color: #ffffff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: 0.2s ease;
+}
+
+.primary-btn:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   3. SUCCESS MESSAGE
+========================================= */
+
+.alert {
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.alert.success {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+
+/* =========================================
+   4. TASK STATISTICS
+========================================= */
+
+.task-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.summary-card {
+    padding: 23px;
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 18px rgba(15, 23, 42, 0.07);
+}
+
+.summary-card p {
+    margin: 0 0 13px;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.summary-card h2 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   5. SEARCH & FILTER CARD
+========================================= */
+
+.task-filter-card {
+    padding: 25px;
+    margin-bottom: 25px;
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
+}
+
+.filter-heading {
+    margin-bottom: 23px;
+}
+
+.filter-heading h2 {
+    margin: 0 0 8px;
+    color: #1e293b;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.filter-heading p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   6. FILTER FORM
+========================================= */
+
+.task-filter-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.filter-group label {
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    height: 45px;
+    padding: 0 13px;
+    background: #ffffff;
+    border: 1px solid #dbe1ea;
+    border-radius: 8px;
+    outline: none;
+    color: #334155;
+    font-size: 13px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-group input::placeholder {
+    color: #94a3b8;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+
+/* =========================================
+   7. FILTER BUTTONS
+========================================= */
+
+.filter-buttons {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.filter-search-btn,
+.filter-reset-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 45px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.filter-search-btn {
+    background: #4f46e5;
+    color: #ffffff;
+}
+
+.filter-search-btn:hover {
+    background: #4338ca;
+}
+
+.filter-reset-btn {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.filter-reset-btn:hover {
+    background: #e2e8f0;
+}
+
+
+/* =========================================
+   8. TASK MANAGEMENT CARD
+========================================= */
+
+.content-card {
+    padding: 25px;
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.section-heading h2 {
+    margin: 0 0 7px;
+    color: #1e293b;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.section-heading p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   9. TASK TABLE
+========================================= */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-wrapper table {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.table-wrapper thead {
+    background: #f8fafc;
+}
+
+.table-wrapper th {
+    padding: 16px 14px;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.table-wrapper td {
+    padding: 17px 14px;
+    color: #475569;
+    font-size: 13px;
+    border-bottom: 1px solid #edf0f5;
+    vertical-align: middle;
+}
+
+.table-wrapper tbody tr {
+    transition: background 0.2s ease;
+}
+
+.table-wrapper tbody tr:hover {
+    background: #fafbff;
+}
+
+.table-wrapper tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================
+   10. TASK DETAILS
+========================================= */
+
+.task-details {
+    max-width: 260px;
+}
+
+.task-details strong {
+    display: block;
+    margin-bottom: 7px;
+    color: #1e293b;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.task-details small {
+    display: -webkit-box;
+    overflow: hidden;
+    color: #94a3b8;
+    font-size: 12px;
+    line-height: 1.5;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+
+/* =========================================
+   11. PRIORITY BADGES
+========================================= */
+
+.priority,
+.status {
+    display: inline-block;
+    padding: 6px 11px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.priority.low {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.priority.medium {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.priority.high {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+
+/* =========================================
+   12. TASK STATUS
+========================================= */
+
+.status.pending {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.status.in-progress {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.status.completed {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+
+/* =========================================
+   13. EDIT & DELETE ACTIONS
+========================================= */
+
+.task-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.task-actions form {
+    margin: 0;
+}
+
+.edit-btn,
+.delete-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 34px;
+    padding: 0 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.edit-btn {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+.edit-btn:hover {
+    background: #c7d2fe;
+}
+
+.delete-btn {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.delete-btn:hover {
+    background: #fecaca;
+}
+
+
+/* =========================================
+   14. EMPTY STATE
+========================================= */
+
+.empty-message {
+    padding: 50px 20px !important;
+    text-align: center;
+}
+
+.empty-state h3 {
+    margin: 0 0 10px;
+    color: #334155;
+    font-size: 19px;
+}
+
+.empty-state p {
+    margin: 0 0 20px;
+    color: #94a3b8;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   15. RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .task-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================
+   16. RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .main-content {
+        padding: 20px 15px;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .topbar h1 {
+        font-size: 24px;
+    }
+
+    .task-filter-form {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-buttons {
+        align-items: stretch;
+    }
+
+    .filter-search-btn,
+    .filter-reset-btn {
+        flex: 1;
+    }
+
+    .content-card,
+    .task-filter-card {
+        padding: 18px;
+    }
+
+}
+
+
+/* =========================================
+   17. RESPONSIVE - SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+    .task-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .summary-card {
+        padding: 16px;
+    }
+
+    .summary-card h2 {
+        font-size: 24px;
+    }
+
+    .summary-card p {
+        font-size: 12px;
+    }
+
+    .filter-buttons {
+        flex-direction: column;
+    }
+
+    .filter-search-btn,
+    .filter-reset-btn {
+        width: 100%;
+    }
+
+    .task-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+}

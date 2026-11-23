@@ -1,0 +1,41 @@
+<aside class="sidebar">
+    <div class="logo">
+        <h2>TaskFlow<span>.</span></h2>
+        <p>ADMIN PANEL</p>
+    </div>
+    <div class="nav-section">
+        <small>MAIN MENU</small>
+        <nav>
+            <a href="/admin/dashboard" class="<%= currentPage === 'dashboard' ? 'active' : '' %>">
+                <span>▦</span> Dashboard
+            </a>
+            <a href="/admin/tasks" class="<%= currentPage === 'task' ? 'active' : '' %>">
+                <span>✓</span> All Tasks
+            </a>
+            <a href="/admin/create-task" class="<%= currentPage === 'createTask' ? 'active' : '' %>">
+                <span>＋</span> Create Task
+            </a>
+            <a href="/admin/users" class="<%= currentPage === 'user' ? 'active' : '' %>">
+                <span>♙</span> Manage Users
+            </a>
+        </nav>
+    </div>
+    <div class="sidebar-bottom">
+        <div class="admin-profile">
+            <div class="avatar">
+                <%= currentUser.name.charAt(0).toUpperCase() %>
+            </div>
+            <div>
+                <strong>
+                    <%= currentUser.name %>
+                </strong>
+                <small>Administrator</small>
+            </div>
+        </div>
+        <form action="/logout" method="POST">
+            <button type="submit" class="logout-btn">
+                Logout
+            </button>
+        </form>
+    </div>
+</aside>

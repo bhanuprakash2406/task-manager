@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard | TaskFlow</title>
+    <link rel="stylesheet" href="/css/user.css">
+</head>
+<body>
+    <div class="dashboard-container">
+         <!-- SIDEBAR -->
+        <%- include("../../partials/userSidebar.ejs") %>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div>
+                    <h1>Dashboard Overview</h1>
+                    <p>Manage your tasks and track your progress efficiently.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <%= currentUser.name.charAt(0).toUpperCase() %>
+                    </div>
+                    <span>
+                        <%= currentUser.name.charAt(0).toUpperCase() + currentUser.name.substring(1,).toLowerCase()%>
+                    </span>
+                </div>
+            </header>
+            <!-- Welcome -->
+            <section class="welcome-section">
+                <div>
+                    <h2>Hello, <%= currentUser.name %> 👋</h2>
+                    <p>Here's what's happening with your tasks today.</p>
+                </div>
+            </section>
+            <!-- Statistics -->
+            <section class="stats-grid">
+                <div class="stat-card total">
+                    <h3>Total Tasks</h3>
+                    <h2>
+                        <%= statistics.total %>
+                    </h2>
+                    <p>All assigned tasks</p>
+                </div>
+                <div class="stat-card pending">
+                    <h3>Pending</h3>
+                    <h2>
+                        <%= statistics.pending %>
+                    </h2>
+                    <p>Tasks waiting to start</p>
+                </div>
+                <div class="stat-card progress">
+                    <h3>In Progress</h3>
+                    <h2>
+                        <%= statistics.inProgress %>
+                    </h2>
+                    <p>Currently working</p>
+                </div>
+                <div class="stat-card completed">
+                    <h3>Completed</h3>
+                    <h2>
+                        <%= statistics.completed %>
+                    </h2>
+                    <p>Successfully completed</p>
+                </div>
+            </section>
+            <!-- My Tasks -->
+            <section class="tasks-section">
+                <div class="section-header">
+                    <div>
+                        <h2>My Tasks</h2>
+                        <p>Tasks assigned to you by admin</p>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (tasks && tasks.length> 0) { %>
+                                <% tasks.forEach(task=> { %>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <%= task.title %>
+                                            </strong>
+                                            <small>
+                                                <%= task.description || "No description" %>
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <span class="priority <%= task.priority %>">
+                                                <%= task.priority %>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="status <%= task.status %>">
+                                                <%= task.status %>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <%= task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "Not set"
+                                                %>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            <% } else { %>
+                                <tr>
+                                    <td colspan="4" class="empty-message">
+                                        No tasks assigned yet.
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

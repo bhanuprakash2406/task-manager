@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tasks | TaskFlow</title>
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/my-tasks.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- SIDEBAR -->
+        <%- include("../../partials/userSidebar.ejs") %>
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- HEADER -->
+            <header class="dashboard-header">
+                <div>
+                    <h1>My Tasks</h1>
+                    <p>View and manage your assigned tasks.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <%= currentUser.name.charAt(0).toUpperCase() %>
+                    </div>
+                    <span>
+                        <%= currentUser.name %>
+                    </span>
+                </div>
+            </header>
+            <!-- TASK SUMMARY -->
+            <section class="my-task-summary">
+                <div class="summary-card">
+                    <p>Total Tasks</p>
+                    <h2>
+                        <%= tasks.length %>
+                    </h2>
+                </div>
+                <div class="summary-card">
+                    <p>Pending</p>
+                    <h2>
+                        <%= tasks.filter(task=>
+                            task.status === "pending"
+                            ).length %>
+                    </h2>
+                </div>
+                <div class="summary-card">
+                    <p>In Progress</p>
+                    <h2>
+                        <%= tasks.filter(task=>
+                            task.status === "in-progress"
+                            ).length %>
+                    </h2>
+                </div>
+                <div class="summary-card">
+                    <p>Completed</p>
+                    <h2>
+                        <%= tasks.filter(task=>
+                            task.status === "completed"
+                            ).length %>
+                    </h2>
+                </div>
+            </section>
+            <!-- ASSIGNED TASKS -->
+            <section class="my-tasks-section">
+                <div class="section-heading">
+                    <div>
+                        <h2>Assigned Tasks</h2>
+                        <p>Tasks assigned to you by the administrator.</p>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                                <th>Update Status</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (tasks && tasks.length> 0) { %>
+                                <% tasks.forEach(task=> { %>
+                                    <tr>
+                                        <!-- TASK DETAILS -->
+                                        <td>
+                                            <strong>
+                                                <%= task.title %>
+                                            </strong>
+                                            <small>
+                                                <%= task.description || "No description" %>
+                                            </small>
+                                        </td>
+                                        <!-- PRIORITY -->
+                                        <td>
+                                            <span class="priority <%= task.priority %>">
+                                                <%= task.priority %>
+                                            </span>
+                                        </td>
+                                        <!-- STATUS -->
+                                        <td>
+                                            <span class="status <%= task.status %>">
+                                                <%= task.status %>
+                                            </span>
+                                        </td>
+                                        <!-- DUE DATE -->
+                                        <td>
+                                            <%= task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "Not set"
+                                                %>
+
+                                        </td>
+                                        <!-- UPDATE STATUS -->
+                                        <td>
+                                            <form action="/user/tasks/<%= task._id %>/status" method="POST"
+                                                class="status-form">
+                                                <select name="status">
+                                                    <option value="pending" <%=task.status==="pending" ? "selected" : ""
+                                                        %>
+                                                        >
+                                                        Pending
+                                                    </option>
+                                                    <option value="in-progress" <%=task.status==="in-progress"
+                                                        ? "selected" : "" %>
+                                                        >
+                                                        In Progress
+                                                    </option>
+                                                    <option value="completed" <%=task.status==="completed" ? "selected"
+                                                        : "" %>
+                                                        >
+                                                        Completed
+                                                    </option>
+                                                </select>
+                                                <button type="submit" class="update-btn">
+                                                    Update
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <!-- VIEW DETAILS -->
+                                        <td>
+                                            <a href="/user/tasks/<%= task._id %>" class="view-task-btn">
+                                                View Details
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            <% } else { %>
+                                <!-- EMPTY STATE -->
+                                <tr>
+                                    <td colspan="6" class="empty-message">
+                                        <div class="empty-state">
+                                            <h3>No Tasks Assigned</h3>
+                                            <p>
+                                                You don't have any assigned tasks yet.
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
